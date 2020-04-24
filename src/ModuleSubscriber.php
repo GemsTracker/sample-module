@@ -34,7 +34,7 @@ class ModuleSubscriber implements EventSubscriberInterface
         $menu = $event->getMenu();
         $translateAdapter = $event->getTranslatorAdapter();
 
-        $menu->addPage($translateAdapter->_('Sample Module Test'), 'pr.sample', 'module-test', 'index');
+        $menu->addPage($translateAdapter->_('Sample Module Test'), null, 'module-test', 'index');
     }
 
     /*public function getDatabasePaths(GetDatabasePaths $event)
