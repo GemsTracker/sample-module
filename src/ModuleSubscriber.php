@@ -1,25 +1,48 @@
 <?php
 
+/**
+ *
+ *
+ * @package    SampleModule
+ * @subpackage Module
+ * @license    Not licensed, do not copy
+ */
 
 namespace SampleModule;
 
-use Gems\Event\Application\GetDatabasePaths;
+// use Gems\Event\Application\GetDatabasePaths;
 use Gems\Event\Application\MenuAdd;
+// use Gems\Event\Application\ModelCreateEvent;
 use Gems\Event\Application\SetFrontControllerDirectory;
-use Gems\Event\Application\TranslatableNamedArrayEvent;
+// use Gems\Event\Application\TranslatableNamedArrayEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ *
+ * @package    GemsRandomizer
+ * @subpackage Module
+ * @since      Class available since version 1.8.8
+ */
 class ModuleSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @return array|\string[][][]
+     */
     public static function getSubscribedEvents()
     {
         return [
-            /*GetDatabasePaths::NAME => [
-                ['getDatabasePaths'],
-            ],*/
-            /*'gems.tracker.fieldtypes.get' => [
-                ['getFieldTypes'],
-            ],*/
+//            GetDatabasePaths::NAME => [
+//                ['getDatabasePaths'],
+//            ],
+//            'gems.model.create.conditions' => [
+//                ['createConditionModel'],
+//            ],
+//            'gems.tracker.fielddependencies.get' => [
+//                ['getFieldDependencies'],
+//            ],
+//            'gems.tracker.fieldtypes.get' => [
+//                ['getFieldTypes'],
+//            ],
             MenuAdd::NAME => [
                 ['addToMenu']
             ],
@@ -29,6 +52,9 @@ class ModuleSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * @param \Gems\Event\Application\MenuAdd $event
+     */
     public function addToMenu(MenuAdd $event)
     {
         $menu = $event->getMenu();
@@ -37,13 +63,27 @@ class ModuleSubscriber implements EventSubscriberInterface
         $menu->addPage($translateAdapter->_('Sample Module Test'), null, 'module-test', 'index');
     }
 
-    /*public function getDatabasePaths(GetDatabasePaths $event)
+    /**
+     * @param \Gems\Event\Application\ModelCreateEvent $event
+     * /
+    public function createConditionModel(ModelCreateEvent $event)
+    {
+        // \MUtil_Echo::track($event->getModel()->getName());
+    }
+
+    /**
+     * @param \Gems\Event\Application\GetDatabasePaths $event
+     * /
+    public function getDatabasePaths(GetDatabasePaths $event)
     {
         $path = ModuleSettings::getVendorPath() . DIRECTORY_SEPARATOR . 'configs' . DIRECTORY_SEPARATOR . 'db';
         $event->addPath(ModuleSettings::$moduleName, $path);
-    }*/
+    }// */
 
-    /*public function getFieldTypes(TranslatableNamedArrayEvent $event)
+    /**
+     * @param \Gems\Event\Application\TranslatableNamedArrayEvent $event
+     * /
+    public function getFieldTypes(TranslatableNamedArrayEvent $event)
     {
         $translateAdapter = $event->getTranslatorAdapter();
         $fieldTypes = [
@@ -51,8 +91,11 @@ class ModuleSubscriber implements EventSubscriberInterface
         ];
 
         $event->addItems($fieldTypes);
-    }*/
+    }// */
 
+    /**
+     * @param \Gems\Event\Application\SetFrontControllerDirectory $event
+     */
     public function setFrontControllerDirectory(SetFrontControllerDirectory $event)
     {
         $applicationPath = ModuleSettings::getVendorPath() . DIRECTORY_SEPARATOR . 'controllers';
