@@ -15,6 +15,7 @@ use Gems\Event\Application\MenuAdd;
 // use Gems\Event\Application\ModelCreateEvent;
 use Gems\Event\Application\SetFrontControllerDirectory;
 // use Gems\Event\Application\TranslatableNamedArrayEvent;
+// use Gems\Event\Application\ZendTranslateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -49,6 +50,9 @@ class ModuleSubscriber implements EventSubscriberInterface
             SetFrontControllerDirectory::NAME => [
                 ['setFrontControllerDirectory'],
             ],
+//            ZendTranslateEvent::NAME => [
+//                ['addTranslation'],
+//            ],
         ];
     }
 
@@ -61,6 +65,24 @@ class ModuleSubscriber implements EventSubscriberInterface
         $translateAdapter = $event->getTranslatorAdapter();
 
         $menu->addPage($translateAdapter->_('Sample Module Test'), null, 'module-test', 'index');
+    }
+
+    /**
+     * @param \Gems\Event\Application\ZendTranslateEvent $event
+     * @throws \Zend_Translate_Exception
+     * /
+    public function addTranslation(ZendTranslateEvent $event)
+    {
+        $event->addTranslationByDirectory(ModuleSettings::getVendorPath() . DIRECTORY_SEPARATOR . 'languages');
+    }
+
+    /**
+     * @param \Gems\Event\Application\ZendTranslateEvent $event
+     * @throws \Zend_Translate_Exception
+     * /
+    public function addTranslation(ZendTranslateEvent $event)
+    {
+        $event->addTranslationByDirectory(ModuleSettings::getVendorPath() . DIRECTORY_SEPARATOR . 'languages');
     }
 
     /**
