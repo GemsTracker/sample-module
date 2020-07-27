@@ -4,11 +4,11 @@
  *
  * @package    SampleModule
  * @subpackage Module
+ * @author     jvangestel@gmail.com
  * @license    New BSD License
  */
 
 namespace SampleModule;
-
 
 use Gems\Modules\ModuleSettingsAbstract;
 

@@ -5,12 +5,14 @@
  *
  * @package    SampleModule
  * @subpackage Module
- * @license    Not licensed, do not copy
+ * @author     jvangestel@gmail.com
+ * @license    New BSD License
  */
 
 namespace SampleModule;
 
 // use Gems\Event\Application\GetDatabasePaths;
+// use Gems\Event\Application\LoaderInitEvent;
 use Gems\Event\Application\MenuAdd;
 // use Gems\Event\Application\ModelCreateEvent;
 use Gems\Event\Application\SetFrontControllerDirectory;
@@ -22,6 +24,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @package    GemsRandomizer
  * @subpackage Module
+ * @license    New BSD License
  * @since      Class available since version 1.8.8
  */
 class ModuleSubscriber implements EventSubscriberInterface
@@ -34,6 +37,9 @@ class ModuleSubscriber implements EventSubscriberInterface
         return [
 //            GetDatabasePaths::NAME => [
 //                ['getDatabasePaths'],
+//            ],
+//            LoaderInitEvent::NAME => [
+//                ['initLoader'],
 //            ],
 //            'gems.model.create.conditions' => [
 //                ['createConditionModel'],
@@ -114,6 +120,14 @@ class ModuleSubscriber implements EventSubscriberInterface
 
         $event->addItems($fieldTypes);
     }// */
+
+    /**
+     * @param \Gems\Event\Application\LoaderInitEvent $event
+     * /
+    public function initLoader(LoaderInitEvent $event)
+    {
+        $event->addByName(new SampleUtil(), 'randomUtil');
+    }
 
     /**
      * @param \Gems\Event\Application\SetFrontControllerDirectory $event
